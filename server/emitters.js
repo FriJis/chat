@@ -1,22 +1,19 @@
-let data = {}
 
 const { getRoom, leaveFromAllRooms, redirect } = require('./utils/helpers')
+const messages = require('./utils/messages')
+const data = require('./utils/data')
 
-const join = ({ event: {nick, pass}, socket, io }) => {
+const join = ({ event: { nick, pass }, socket, io }) => {
 
-    leaveFromAllRooms(socket)
+    leaveFromAllRooms({ socket, io })
 
-    pass = pass.toString()
-    if (!data[pass]) {
-        data[pass] = {
-            crypt_token: socket.id
-        }
-    }
+    const room = data.joinToRoom({socket}, pass)
+
     socket.nick = nick
-    socket.emit('setCryptToken', data[pass].crypt_token)
+    messages.sendCryptToken({socket},room.crypt_token)
     socket.join(pass)
     redirect(socket, '/mess')
-    io.to(pass).emit('chat/message/server')
+    messages.joinToRoom({socket, io}, pass)
 }
 
 const sendMessage = ({ socket, event, io }) => {
@@ -27,9 +24,12 @@ const sendMessage = ({ socket, event, io }) => {
     })
 }
 
-
+const disconnecting = ({ socket, io }) => {
+    leaveFromAllRooms({socket, io})
+}
 
 module.exports = {
     join,
-    sendMessage
+    sendMessage,
+    disconnecting
 }

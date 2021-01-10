@@ -9,16 +9,25 @@ export default function Messenger() {
     io.on('chat/message/from-user', ({ nick, message }) => {
         messages.push({
             nick,
-            message: decrypt(message)
+            // message: message,
+            message: decrypt(message),
+            type: 'message'
         })
         setMesseges([...messages])
     })
-
+    io.on('chat/message/server', ({ nick, message }) => {
+        messages.push({
+            nick,
+            message,
+            type: 'server_message'
+        })
+        setMesseges([...messages])
+    })
     const sendMessage = (e) => {
         e.preventDefault()
         let { target } = e
-
         ioSendMessage(encrypt(target.querySelector('input[name="message"]').value))
+        // ioSendMessage(target.querySelector('input[name="message"]').value)
     }
 
     return (
@@ -27,12 +36,21 @@ export default function Messenger() {
                 {messages.map((mes, i) => {
                     return (
                         <div className="row" key={i}>
-                            <div className="card col s6 grey lighten-2">
-                                <div className="card-content">
-                                    <span className="card-title">{mes.nick}</span>
-                                    <p>{mes.message}</p>
+                            {mes.type === 'message' ? (
+                                <div className='card col s6 grey lighten-2'>
+                                    <div className="card-content">
+                                        <span className="card-title">{mes.nick}</span>
+                                        <p>{mes.message}</p>
+                                    </div>
                                 </div>
-                            </div>
+                            ) : (
+                                    <div className='card col s4 offset-s4 red lighten-2'>
+                                        <div className="card-content center-align">
+                                            <p>{mes.message}</p>
+                                        </div>
+                                    </div>
+                                )}
+
                         </div>
                     )
                 })}
