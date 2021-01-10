@@ -26,7 +26,6 @@ export default function App() {
     history.push(e)
   })
   const leave = () => {
-    console.log('ewrf');
     io.emit('disconnected')
   }
   return (

@@ -20,7 +20,8 @@ const sendMessage = ({ socket, event, io }) => {
     console.log(event);
     io.to(getRoom(socket)).emit('chat/message/from-user', {
         nick: socket.nick,
-        message: event
+        message: event,
+        socket_id: socket.id
     })
 }
 
