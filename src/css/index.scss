@@ -1,0 +1,17 @@
+@import "~materialize-css/dist/css/materialize.min.css";
+.messenger {
+    height: 100vh;
+    $writter: 50px;
+    .field__messages {
+        height: calc(100% - #{$writter} - 20px);
+        overflow-y: auto;
+    }
+    .field__text {
+        height: $writter;
+        margin: 0;
+    }
+}
+
+.auth {
+    height: 100vh;
+}
