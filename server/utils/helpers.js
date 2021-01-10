@@ -5,12 +5,13 @@ const getRoom = ({rooms}) => {
 }
 
 const leaveFromAllRooms = ({socket, io}) => {
+    console.log(socket.rooms);
     for (const room of socket.rooms) {
         messages.leaveFromRoom({socket, io}, room)
         socket.leave(room)
     }
 }
-const redirect = (socket, route) => {
+const redirect = ({socket}, route) => {
     socket.emit('redirect', route)
 }
 

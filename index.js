@@ -8,10 +8,10 @@ const io = require('socket.io')(http, {
 
 const emitters = require('./server/emitters')
 
-app.get(/\.js/, (req, res) => {
+app.get(/\.(js|css)/, (req, res) => {
     res.sendFile(__dirname + '/build' + req.url);
 });
-app.get('/', (req, res) => {
+app.get('/*', (req, res) => {
     res.sendFile(__dirname + '/build/index.html');
 });
 io.on('connection', (socket) => {
