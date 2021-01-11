@@ -2,8 +2,8 @@ import CryptoJS from 'crypto-js'
 
 let token = null
 
-const setToken = (ttoken) => {
-    token = ttoken
+const setToken = (t) => {
+    token = t
 }
 const getToken = () => {
     return token || null

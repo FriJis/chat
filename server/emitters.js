@@ -7,12 +7,15 @@ const join = ({ event: { nick, pass }, socket, io }) => {
 
     leaveFromAllRooms({ socket, io })
 
-    const room = data.joinToRoom({ socket }, pass)
-
+    const { status, room } = data.joinToRoom({ socket, nick }, pass)
+    console.log(room);
+    if(!status) {
+        return
+    }
     socket.nick = nick
     messages.sendCryptToken({ socket }, room.crypt_token)
     socket.join(pass)
-    redirect({socket}, '/mess')
+    redirect({ socket }, '/mess')
     messages.joinToRoom({ socket, io }, pass)
 }
 

@@ -1,7 +1,7 @@
 const leaveFromRoom = ({socket, io}, room) => {
     io.to(room).emit('chat/message/server', {
         nick: socket.nick,
-        message: `Byu, ${socket.nick}`
+        message: `Goodbyu, ${socket.nick}`
     })
 }
 

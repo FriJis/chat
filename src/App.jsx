@@ -34,7 +34,7 @@ export default function App() {
         <div className="nav-wrapper container">
           <div className="col s12">
             <ul className="left">
-              <li><div className="btn" onClick={leave}>Leave</div></li>
+              <li><div className="btn transparent" onClick={leave}>Leave</div></li>
             </ul>
           </div>
         </div>

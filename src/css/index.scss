@@ -1,6 +1,7 @@
 @import "~materialize-css/dist/css/materialize.min.css";
+$header: 64px;
 .messenger {
-    height: 100vh;
+    height: calc(100vh - #{$header});
     $writter: 50px;
     .field__messages {
         height: calc(100% - #{$writter} - 20px);
